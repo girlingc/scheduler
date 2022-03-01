@@ -1,7 +1,5 @@
 import React from "react";
-
 import "components/Appointment/styles.scss";
-
 import Header from "./Header";
 import Show from "./Show";
 import Empty from "./Empty";
@@ -9,7 +7,6 @@ import Form from "./Form";
 import Status from "./Status";
 import Confirm from "./Confirm";
 import Error from "./Error";
-
 import useVisualMode from "hooks/useVisualMode";
 import { delayStatus } from "helpers/selectors";
 
@@ -39,19 +36,19 @@ export default function Appointment(props) {
       .then(() => {transition(SAVING)})
       .then(() => {transition(SHOW)})
       .catch((error)=> {
-        console.log("save error", error);
+        console.log("Error while saving", error);
         transition(ERROR_SAVE, true);
       })
   };
 
   const deleteAppointment = (id) => {
-    console.log("TJ deleteappointment");
+    console.log("deleteAppointment:");
     transition(DELETING)
     cancelInterview(id)
       .then(() => {transition(DELETING)})
       .then(() => {transition(EMPTY)})
       .catch((error) => {
-        console.log("delete error", error);
+        console.log("Error while deleting", error);
         transition(ERROR_DELETE, true);
       })
   }

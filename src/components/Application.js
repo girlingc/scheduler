@@ -1,13 +1,9 @@
 import React, { useState, useEffect } from "react";
-
 import "components/Application.scss";
-
 import DayList from "./DayList";
 import Appointment from "./Appointment";
 import { getAppointmentsForDay, getInterviewersForDay, getInterview } from "helpers/selectors";
-
 import axios from "axios";
-
 
 export default function Application(props) {
 	const [state, setState] = useState({
@@ -16,7 +12,6 @@ export default function Application(props) {
 		appointments: {},
 		interviewers: {},
 	});
-
 
 	const bookInterview = (id, interview) => {
 		console.log(

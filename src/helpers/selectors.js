@@ -12,7 +12,6 @@ export function getAppointmentsForDay(state, day) {
 	return matchedAppointments;
 };
 
-
 export function getInterviewersForDay(state, day) {
 	const appointmentsOfMatchedDay = state.days.filter(
 		(filteredDay) => filteredDay.name === day
@@ -27,18 +26,13 @@ export function getInterviewersForDay(state, day) {
 	return matchedInterviewers;
 };
 
-
 export function getInterview(state, interview) {
 	if (!interview) {
 		return null;
 	}
-  if (interview.interviewer.id) {
-    return interview;
-  }
 	interview.interviewer = state.interviewers[interview.interviewer];
 	return interview;
 };
-
 
 export function delayStatus(hook, newMode) {
   setTimeout(()=> hook(newMode)
