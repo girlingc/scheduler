@@ -33,7 +33,6 @@ export default function Appointment(props) {
       interviewer
     };
     bookInterview(id, interview)
-      .then(() => {transition(SAVING)})
       .then(() => {transition(SHOW)})
       .catch((error)=> {
         console.log("Error while saving", error);

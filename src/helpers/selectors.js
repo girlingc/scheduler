@@ -30,6 +30,9 @@ export function getInterview(state, interview) {
 	if (!interview) {
 		return null;
 	}
+	if (interview.interviewer.id) {
+    return interview;
+  }
 	interview.interviewer = state.interviewers[interview.interviewer];
 	return interview;
 };
