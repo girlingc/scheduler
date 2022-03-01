@@ -27,7 +27,7 @@ export default function Appointment(props) {
   );
   
   const save = (name, interviewer) => {
-    transition(SAVING);
+    transition(SAVING)
     const interview = {
       student: name,
       interviewer
