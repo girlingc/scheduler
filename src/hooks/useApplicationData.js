@@ -29,12 +29,14 @@ export default function useApplicationData() {
 			.put(`/api/appointments/${id}`, {
 				interview,
 			})
-			.then(
+			.then(res => {
+        const days = countSpots(id, false)
 				setState({
 					...state,
 					appointments,
+          days
 				})
-			);
+      });
 	};
 
 
@@ -73,6 +75,19 @@ export default function useApplicationData() {
 			});
 		});
 	}, []);
+
+  const countSpots = (id, increment = true) => {
+    const day = state.days.filter(day =>
+      day.appointments.includes(id)
+    )[0]
+    increment ? (day.spots += 1) : (day.spots -= 1)
+
+    const days = [...state.days]
+    const dayIndex = day.id - 1
+    days[dayIndex] = day
+
+    return days
+  }
 
   return { state, setState, setDay, bookInterview, cancelInterview };
 };

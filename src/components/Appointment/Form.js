@@ -5,13 +5,24 @@ import InterviewerList from "components/InterviewerList";
 export default function Form(props) {
 	const [student, setStudent] = useState(props.student || "");
 	const [interviewer, setInterviewer] = useState(props.interviewer || null);
+	const [error, setError] = useState('')
 
-  const reset = () => {
-    setStudent("");
-    setInterviewer(null);
-  }
+  // const reset = () => {
+  //   setStudent("");
+  //   setInterviewer(null);
+  // }
 
   const onSubmit = (event) => {event.preventDefault()};
+
+  const validate = (student, interviewer) => {
+    // eslint-disable-next-line no-restricted-globals
+    if (student === '') {
+      setError('Student name cannot be blank')
+      return
+    }
+
+    props.onSave(student, interviewer)
+  }
   
 	return (
 		<main className='appointment__card appointment__card--create'>
@@ -21,11 +32,15 @@ export default function Form(props) {
 						className='appointment__create-input text--semi-bold'
 						name={props.student}
 						type='text'
-						placeholder={student || "Write your name here"}
+						placeholder={student || "Enter Student Name"}
 						value={student}
             onChange={(event) => setStudent(event.target.value)}
+						data-testid="student-name-input"
 					/>
 				</form>
+				<div>
+					{error}
+				</div>
 				<InterviewerList
 					value={interviewer}
 					interviewers={props.interviewers}
@@ -37,7 +52,7 @@ export default function Form(props) {
 					<Button danger onClick={props.onCancel}>
 						Cancel
 					</Button>
-					<Button confirm onClick={() => props.onSave(student, interviewer)}>
+					<Button confirm onClick={() => validate(student, interviewer)}>
 						Save
 					</Button>
 				</section>
