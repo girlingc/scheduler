@@ -8,7 +8,6 @@ import Status from "./Status";
 import Confirm from "./Confirm";
 import Error from "./Error";
 import useVisualMode from "hooks/useVisualMode";
-import { delayStatus } from "helpers/selectors";
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
@@ -34,8 +33,8 @@ export default function Appointment(props) {
     };
     bookInterview(id, interview)
       .then(() => {transition(SHOW)})
-      .catch((error)=> {
-        console.log("Error while saving", error);
+      .catch((error) => {
+        console.log("Error while saving:", error);
         transition(ERROR_SAVE, true);
       })
   };
@@ -47,7 +46,7 @@ export default function Appointment(props) {
       .then(() => {transition(DELETING)})
       .then(() => {transition(EMPTY)})
       .catch((error) => {
-        console.log("Error while deleting", error);
+        console.log("Error while deleting:", error);
         transition(ERROR_DELETE, true);
       })
   }
@@ -67,8 +66,8 @@ export default function Appointment(props) {
         onCancel={() => back(EMPTY)} 
         onSave={save}
       />}
-      {mode === SAVING && <Status message={"Saving"} onComplete={() => delayStatus(transition, SHOW)}/>}
-      {mode === DELETING && <Status message={"Deleting"} onComplete={() => delayStatus(transition, EMPTY)}/>}
+      {mode === SAVING && <Status message={"Saving"} />}
+      {mode === DELETING && <Status message={"Deleting"} />}
       {mode === CONFIRM && 
         <Confirm message={"Confirm Messgae"} 
         onCancel={back}
@@ -81,8 +80,8 @@ export default function Appointment(props) {
         student={interview.student}
         interviewer={interview.interviewer.id}
       />}
-      {mode === ERROR_SAVE && <Error message={"Error while saving"} onClose={()=>{back()}}/>}
-      {mode === ERROR_DELETE && <Error message={"Error while deleting"} onClose={()=>{back()}}/>}
+      {mode === ERROR_SAVE && <Error message={"Error while saving!!"} onClose={()=>{back()}}/>}
+      {mode === ERROR_DELETE && <Error message={"Error while deleting!!"} onClose={()=>{back()}}/>}
       
 		</article>
 	);
