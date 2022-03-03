@@ -1,13 +1,13 @@
-import React from 'react'
+import React from "react";
 
-import { render, cleanup } from '@testing-library/react'
+import { render, cleanup } from "@testing-library/react";
 
-import Appointment from 'components/Appointment'
+import Appointment from "components/Appointment";
 
-afterEach(cleanup)
+afterEach(cleanup);
 
-describe('Appointment component', () => {
-  it('renders without crashing', () => {
-    render(<Appointment />)
-  })
-})
+describe("Appointment component", () => {
+  it("renders without crashing", () => {
+    render(<Appointment />);
+  });
+});
