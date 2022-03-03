@@ -10,13 +10,21 @@ export default function useApplicationData() {
 	});
 
   const setDay = (day) => setState({ ...state, day });
+  
+  const updateSpots = (dayValue, day, variable) =>{
+    let spot = day.spots;
+
+    if (dayValue === day.name && variable === "addSpots") {
+      return spot - 1;
+    }
+    if (dayValue === day.name && variable === "removeSpots") {
+      return spot + 1;
+    }
+    return spot;
+  };
+  
 
   const bookInterview = (id, interview) => {
-		console.log(
-			"bookAppointment",
-			id,
-			interview
-		);
 		const appointment = {
 			...state.appointments[id],
 			interview: { ...interview },
@@ -29,29 +37,46 @@ export default function useApplicationData() {
 			.put(`/api/appointments/${id}`, {
 				interview,
 			})
-			.then(res => {
-        const days = countSpots(id, false)
+			.then(() => {
+        const newDays = state.days.map((day)=>{
+          return {
+            ...day,
+            spots: updateSpots( state.day, day, "addSpots" )
+          }
+        })
 				setState({
 					...state,
 					appointments,
-          days
+          days: newDays
 				})
+
       });
 	};
-
 
 	const cancelInterview = (id) => {
 		const appointment = {
 			...state.appointments[id],
 			interview: null,
 		};
+    const appointments = {
+			...state.appointments,
+			[id]: appointment,
+		};
 		return axios
       .delete(`/api/appointments/${id}`)
       .then(() => {
-        setState({
-          ...state,
-          appointment
+        const newDays = state.days.map((day)=>{
+          return {
+            ...day,
+            spots: updateSpots( state.day, day, "removeSpots")
+          }
         })
+				setState({
+					...state,
+					appointments,
+          days: newDays
+				})
+
 		});
 	};
 
@@ -75,19 +100,6 @@ export default function useApplicationData() {
 			});
 		});
 	}, []);
-
-  const countSpots = (id, increment = true) => {
-    const day = state.days.filter(day =>
-      day.appointments.includes(id)
-    )[0]
-    increment ? (day.spots += 1) : (day.spots -= 1)
-
-    const days = [...state.days]
-    const dayIndex = day.id - 1
-    days[dayIndex] = day
-
-    return days
-  }
 
   return { state, setState, setDay, bookInterview, cancelInterview };
 };

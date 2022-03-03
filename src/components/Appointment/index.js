@@ -32,6 +32,7 @@ export default function Appointment(props) {
       interviewer
     };
     bookInterview(id, interview)
+      .then(() => {transition(SAVING)})
       .then(() => {transition(SHOW)})
       .catch((error) => {
         console.log("Error while saving:", error);
@@ -69,7 +70,7 @@ export default function Appointment(props) {
       {mode === SAVING && <Status message={"Saving"} />}
       {mode === DELETING && <Status message={"Deleting"} />}
       {mode === CONFIRM && 
-        <Confirm message={"Confirm Messgae"} 
+        <Confirm message={"Do you really want to delete?"} 
         onCancel={back}
         onDelete={() => deleteAppointment(id)}
         />}
