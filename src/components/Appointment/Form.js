@@ -21,8 +21,8 @@ export default function Form(props) {
   const onSubmit = (event) => {event.preventDefault()};
 
   const validate = (student, interviewer) => {
-    if (student === '') {
-      setError('Student name cannot be blank')
+    if (!student || !interviewer) {
+      setError('Student name or Interviewer cannot be blank')
       return
     }
 
