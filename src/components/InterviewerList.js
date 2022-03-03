@@ -6,6 +6,7 @@ import PropTypes from 'prop-types'
 
 export default function InterviewerList (props) {
   
+  // Maps over interviewer array to return InterviewerListItem data
   const interviewers = props.interviewers.map((interviewer) => {
     return (
       <InterviewerListItem

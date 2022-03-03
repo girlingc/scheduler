@@ -25,6 +25,7 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
   
+  // Calls transition to book an interview
   const save = (name, interviewer) => {
     transition(SAVING)
     const interview = {
@@ -40,6 +41,7 @@ export default function Appointment(props) {
       })
   };
 
+  // Calls transition to delete an appointment
   const deleteAppointment = (id) => {
     console.log("deleteAppointment:");
     transition(DELETING)

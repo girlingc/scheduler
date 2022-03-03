@@ -7,7 +7,9 @@ import useApplicationData from "hooks/useApplicationData";
 
 
 
-export default function Application(props) {
+export default function Application() {
+
+	// Importing default states from  useApplicationData
 	const { 
 					state,
 					setDay,
@@ -15,6 +17,7 @@ export default function Application(props) {
 					cancelInterview 
 				} = useApplicationData();
 
+	// Maps over day array to return Appointment data
 	const dailyAppointments = getAppointmentsForDay(state, state.day);
 	const appt = dailyAppointments.map((appointment) => {
 		const interview = getInterview(state, appointment.interview);

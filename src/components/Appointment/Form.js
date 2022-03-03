@@ -7,6 +7,8 @@ export default function Form(props) {
 	const [interviewer, setInterviewer] = useState(props.interviewer || null);
 	const [error, setError] = useState('')
 
+
+	// Resets state for student, error and interviewer when cancel() in invoked
   const reset = () => {
     setStudent("");
 		setError("")
@@ -18,14 +20,15 @@ export default function Form(props) {
 		props.onCancel();
 	}
 
+	// Stops page from re-rendering on each key stroke
   const onSubmit = (event) => {event.preventDefault()};
 
+	// Error handling for blank student name or interviewer
   const validate = (student, interviewer) => {
     if (!student || !interviewer) {
       setError('Student name or Interviewer cannot be blank')
       return
     }
-
 		setError('');
     props.onSave(student, interviewer)
   }

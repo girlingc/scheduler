@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 
 export default function useApplicationData() {
+	// Sets default state
   const [state, setState] = useState({
 		day: "Monday",
 		days: [],
@@ -9,8 +10,10 @@ export default function useApplicationData() {
 		interviewers: {},
 	});
 
+	// Sets state for day
   const setDay = (day) => setState({ ...state, day });
   
+	// Updates the number on sidebar to match actual spots available
   const updateSpots = (dayValue, day, variable) =>{
     let spot = day.spots;
 
@@ -23,7 +26,7 @@ export default function useApplicationData() {
     return spot;
   };
   
-
+	// Books an interview and sets new state for appointments and days
   const bookInterview = (id, interview) => {
 		const appointment = {
 			...state.appointments[id],
@@ -53,6 +56,7 @@ export default function useApplicationData() {
       });
 	};
 
+	// Cancels an interview and sets new state for appointments and days
 	const cancelInterview = (id) => {
 		const appointment = {
 			...state.appointments[id],
@@ -80,6 +84,7 @@ export default function useApplicationData() {
 		});
 	};
 
+	// Acquires data and sets initial load state
   useEffect(() => {
 		const getDaysURL = axios.get(`/api/days`);
 		const getAppointmentsURL = axios.get(`/api/appointments`);
