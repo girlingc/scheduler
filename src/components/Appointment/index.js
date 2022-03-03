@@ -83,8 +83,8 @@ export default function Appointment(props) {
         student={interview.student}
         interviewer={interview.interviewer.id}
       />}
-      {mode === ERROR_SAVE && <Error message={"Error while saving!!"} onClose={()=>{back()}}/>}
-      {mode === ERROR_DELETE && <Error message={"Error while deleting!!"} onClose={()=>{back()}}/>}
+      {mode === ERROR_SAVE && <Error message={"There was an error while attempting to save appointment"} onClose={()=>{back()}}/>}
+      {mode === ERROR_DELETE && <Error message={"There was an error while attempting to delete appointment"} onClose={()=>{back()}}/>}
       
 		</article>
 	);
