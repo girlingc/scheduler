@@ -3,7 +3,10 @@ import React from "react";
 export default function Status(props) {
   const { onComplete } = props;
   return (
-    <main className="appointment__card appointment__card--status" onLoad={onComplete}>
+    <main
+      className="appointment__card appointment__card--status"
+      onLoad={onComplete}
+    >
       <img
         className="appointment__status-image"
         src="images/status.png"

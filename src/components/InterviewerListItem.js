@@ -3,9 +3,10 @@ import classNames from "classnames";
 import "components/InterviewerListItem.scss";
 
 export default function InterviewerListItem(props) {
-  
   // Adds correct class to style interviewers correctly
-  const interviewerClass = classNames("interviewers__item", {"interviewers__item--selected": props.selected});
+  const interviewerClass = classNames("interviewers__item", {
+    "interviewers__item--selected": props.selected,
+  });
 
   return (
     <li className={interviewerClass} onClick={props.setInterviewer}>

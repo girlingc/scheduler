@@ -24,68 +24,101 @@ export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
-  
+
   // Calls transition to book an interview
   const save = (name, interviewer) => {
-    transition(SAVING)
+    transition(SAVING);
     const interview = {
       student: name,
-      interviewer: interviewer.id
+      interviewer: interviewer.id,
     };
     bookInterview(id, interview)
-      .then(() => {transition(SAVING)})
-      .then(() => {transition(SHOW)})
+      .then(() => {
+        transition(SAVING);
+      })
+      .then(() => {
+        transition(SHOW);
+      })
       .catch((error) => {
         console.log("Error while saving:", error);
         transition(ERROR_SAVE, true);
-      })
+      });
   };
 
   // Calls transition to delete an appointment
   const deleteAppointment = (id) => {
     console.log("deleteAppointment:");
-    transition(DELETING)
+    transition(DELETING);
     cancelInterview(id)
-      .then(() => {transition(DELETING)})
-      .then(() => {transition(EMPTY)})
+      .then(() => {
+        transition(DELETING);
+      })
+      .then(() => {
+        transition(EMPTY);
+      })
       .catch((error) => {
         console.log("Error while deleting:", error);
         transition(ERROR_DELETE, true);
-      })
-  }
+      });
+  };
 
-	return (
-		<article className='appointment'>
-			<Header time={props.time} />
-        {mode === SHOW && <Show 
-        student={interview.student} 
-        interviewer={interview.interviewer} 
-        cancelInterview={() => {transition(CONFIRM)}}
-        onEdit={() => {transition(EDIT)}}
-      />}
-      {mode === EMPTY &&  <Empty onAdd={() => transition(CREATE)} />}
-      {mode === CREATE && <Form
-        interviewers={props.interviewers} 
-        onCancel={() => back(EMPTY)} 
-        onSave={save}
-      />}
+  return (
+    <article className="appointment">
+      <Header time={props.time} />
+      {mode === SHOW && (
+        <Show
+          student={interview.student}
+          interviewer={interview.interviewer}
+          cancelInterview={() => {
+            transition(CONFIRM);
+          }}
+          onEdit={() => {
+            transition(EDIT);
+          }}
+        />
+      )}
+      {mode === EMPTY && <Empty onAdd={() => transition(CREATE)} />}
+      {mode === CREATE && (
+        <Form
+          interviewers={props.interviewers}
+          onCancel={() => back(EMPTY)}
+          onSave={save}
+        />
+      )}
       {mode === SAVING && <Status message={"Saving"} />}
       {mode === DELETING && <Status message={"Deleting"} />}
-      {mode === CONFIRM && 
-        <Confirm message={"Do you really want to delete?"} 
-        onCancel={back}
-        onDelete={() => deleteAppointment(id)}
-        />}
-      {mode === EDIT && <Form 
-        onSave={save}
-        onCancel={() => back()}
-        interviewers={props.interviewers} 
-        student={interview.student}
-        interviewer={interview.interviewer.id}
-      />}
-      {mode === ERROR_SAVE && <Error message={"There was an error while attempting to save appointment"} onClose={()=>{back()}}/>}
-      {mode === ERROR_DELETE && <Error message={"There was an error while attempting to delete appointment"} onClose={()=>{back()}}/>}
-      
-		</article>
-	);
+      {mode === CONFIRM && (
+        <Confirm
+          message={"Do you really want to delete?"}
+          onCancel={back}
+          onDelete={() => deleteAppointment(id)}
+        />
+      )}
+      {mode === EDIT && (
+        <Form
+          onSave={save}
+          onCancel={() => back()}
+          interviewers={props.interviewers}
+          student={interview.student}
+          interviewer={interview.interviewer.id}
+        />
+      )}
+      {mode === ERROR_SAVE && (
+        <Error
+          message={"There was an error while attempting to save appointment"}
+          onClose={() => {
+            back();
+          }}
+        />
+      )}
+      {mode === ERROR_DELETE && (
+        <Error
+          message={"There was an error while attempting to delete appointment"}
+          onClose={() => {
+            back();
+          }}
+        />
+      )}
+    </article>
+  );
 }
