@@ -2,6 +2,25 @@
 
 This project is a React Interview Scheduler. You can easily create, edit, and delete interview appointments using our schedular-api. The components were built and tested using Storybook, Jest and Cypress. The Axios package is used to communicate with the backend.
 
+### Stack
+[React](https://reactjs.org/)
+
+[Webpack](https://www.npmjs.com/package/webpack)
+
+[Babel](https://www.npmjs.com/package/Babel)
+
+[Axios](https://www.npmjs.com/package/axios)
+
+[Storybook](https://www.npmjs.com/package/@storybook/cli)
+
+[Jest](https://www.npmjs.com/package/jest)
+
+[Webpack Dev Server](https://www.npmjs.com/package/webpack-dev-server)
+
+[Testing Library](https://www.npmjs.com/package/@testing-library/react)
+
+[Cypress](https://www.npmjs.com/package/cypress)
+
 ## Features
 
 ### Booking an Appointment
