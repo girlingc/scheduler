@@ -11,7 +11,7 @@ import useApplicationData from "hooks/useApplicationData";
 
 export default function Application() {
   // Importing default states from  useApplicationData
-  const { state, setDay, bookInterview, cancelInterview } =
+  const { state, setDay, bookInterview, cancelInterview, editInterview } =
     useApplicationData();
 
   // Maps over day array to return Appointment data
@@ -29,6 +29,7 @@ export default function Application() {
         interviewers={interviewers}
         bookInterview={bookInterview}
         cancelInterview={cancelInterview}
+        editInterview={editInterview}
       />
     );
   });
