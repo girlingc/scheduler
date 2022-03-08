@@ -18,9 +18,11 @@ const DELETING = "DELETING";
 const EDIT = "EDIT";
 const ERROR_SAVE = "ERROR_SAVE";
 const ERROR_DELETE = "ERROR_DELETE";
+const ERROR_EDIT = "ERROR_EDIT";
 
 export default function Appointment(props) {
-  const { bookInterview, id, interview, cancelInterview, editInterview } = props;
+  const { bookInterview, id, interview, cancelInterview, editInterview } =
+    props;
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
@@ -40,7 +42,6 @@ export default function Appointment(props) {
         transition(SHOW);
       })
       .catch((error) => {
-        console.log("Error while saving:", error);
         transition(ERROR_SAVE, true);
       });
   };
@@ -59,14 +60,12 @@ export default function Appointment(props) {
         transition(SHOW);
       })
       .catch((error) => {
-        console.log("Error while saving:", error);
-        transition(ERROR_SAVE, true);
+        transition(ERROR_EDIT, true);
       });
   };
 
   // Calls transition to delete an appointment
   const deleteAppointment = (id) => {
-    console.log("deleteAppointment:");
     transition(DELETING);
     cancelInterview(id)
       .then(() => {
@@ -76,7 +75,6 @@ export default function Appointment(props) {
         transition(EMPTY);
       })
       .catch((error) => {
-        console.log("Error while deleting:", error);
         transition(ERROR_DELETE, true);
       });
   };
@@ -109,7 +107,7 @@ export default function Appointment(props) {
       {mode === CONFIRM && (
         <Confirm
           message={"Do you really want to delete?"}
-          onCancel={back}
+          onCancel={back()}
           onDelete={() => deleteAppointment(id)}
         />
       )}
@@ -133,6 +131,14 @@ export default function Appointment(props) {
       {mode === ERROR_DELETE && (
         <Error
           message={"There was an error while attempting to delete appointment"}
+          onClose={() => {
+            back();
+          }}
+        />
+      )}
+      {mode === ERROR_EDIT && (
+        <Error
+          message={"There was an error while attempting to edit appointment"}
           onClose={() => {
             back();
           }}
