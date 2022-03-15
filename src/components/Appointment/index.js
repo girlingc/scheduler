@@ -107,7 +107,7 @@ export default function Appointment(props) {
       {mode === CONFIRM && (
         <Confirm
           message={"Do you really want to delete?"}
-          onCancel={back()}
+          onCancel={back}
           onDelete={() => deleteAppointment(id)}
         />
       )}
